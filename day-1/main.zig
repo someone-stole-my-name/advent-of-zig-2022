@@ -1,18 +1,11 @@
 const std = @import("std");
+const slurp = @import("util/file.zig").slurp;
 
 var gpa = std.heap.GeneralPurposeAllocator(.{}){};
 const allocator = gpa.allocator();
 
 pub fn main() !void {
-    var path_buffer: [std.fs.MAX_PATH_BYTES]u8 = undefined;
-    const path = try std.fs.realpath("./input", &path_buffer);
-
-    const file = try std.fs.openFileAbsolute(path, .{});
-    defer file.close();
-
-    const file_size = (try file.stat()).size;
-
-    const file_buffer = try file.readToEndAlloc(allocator, file_size);
+    const file_buffer = try slurp(allocator, "./input");
     defer allocator.free(file_buffer);
 
     var iter = std.mem.split(u8, file_buffer, "\n");
