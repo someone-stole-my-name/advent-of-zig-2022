@@ -8,8 +8,10 @@ pub fn slurp(allocator: std.mem.Allocator, file_path: []const u8) ![]u8 {
     const file = try std.fs.openFileAbsolute(path, .{});
     defer file.close();
 
-    return try file.readToEndAlloc(
+    var buf = try file.readToEndAlloc(
         allocator,
         (try file.stat()).size,
     );
+
+    return allocator.resize(buf, buf.len-1).?;
 }
