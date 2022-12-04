@@ -1,7 +1,7 @@
 const std = @import("std");
 const min_idx = @import("util/mem.zig").min_idx;
 
-pub fn puzzle_1(input: []u8) !i32 {
+pub fn puzzle_1(input: []const u8) !i32 {
     var iter = std.mem.split(u8, input, "\n");
     var count: i32 = 0;
     var max: i32 = 0;
@@ -20,7 +20,7 @@ pub fn puzzle_1(input: []u8) !i32 {
     return max;
 }
 
-pub fn puzzle_2(input: []u8) !i32 {
+pub fn puzzle_2(input: []const u8) !i32 {
     var iter = std.mem.split(u8, input, "\n");
     var count: i32 = 0;
     var max: [3]i32 = std.mem.zeroes([3]i32);

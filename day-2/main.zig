@@ -79,7 +79,7 @@ const match_impl = struct {
     }
 };
 
-pub fn puzzle_1(input: []u8) u16 {
+pub fn puzzle_1(input: []const u8) u16 {
     var iter = std.mem.split(u8, input, "\n");
 
     var score: u16 = 0;
@@ -94,7 +94,7 @@ pub fn puzzle_1(input: []u8) u16 {
     return score;
 }
 
-pub fn puzzle_2(input: []u8) u16 {
+pub fn puzzle_2(input: []const u8) u16 {
     var iter = std.mem.split(u8, input, "\n");
 
     var score: u16 = 0;
