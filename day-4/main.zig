@@ -1,5 +1,4 @@
 const std = @import("std");
-const dupl_values = @import("util/mem.zig").dupl_values;
 
 pub fn puzzle_1(input: []u8) !u16 {
     var iter = std.mem.split(u8, input, "\n");
