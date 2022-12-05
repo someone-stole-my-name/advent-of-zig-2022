@@ -78,13 +78,11 @@ fn parse_input(allocator: std.mem.Allocator, input: []const u8) !Data {
     var iter = std.mem.split(u8, input, "\n");
 
     var floor: u8 = 0;
-    var rows: u8 = 0;
+    var rows: usize = 0;
 
     while (iter.next()) |line| : (floor += 1) {
         if (line[1] == '1') {
-            var rows_iter = std.mem.splitBackwards(u8, line, " ");
-            _ = rows_iter.next();
-            rows = try std.fmt.parseInt(u8, rows_iter.next() orelse unreachable, 0);
+            rows = (line.len + 1) / 4;
             iter.reset();
             break;
         }
