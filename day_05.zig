@@ -18,11 +18,8 @@ pub fn puzzle_1(allocator: std.mem.Allocator, input: []const u8) !Result {
     var data = try parse_input(allocator, input);
     defer data.deinit(allocator);
 
-    for (data.Commands) |command| {
-        var command_crates = command.Crates;
-
-        while (command_crates > 0) : (command_crates -= 1) {
-            if (command_crates == 0) break;
+    for (data.Commands) |*command| {
+        while (command.Crates > 0) : (command.Crates -= 1) {
             const tmp = data.Crates[command.From][len(data.Crates[command.From]) - 1];
             data.Crates[command.From][len(data.Crates[command.From]) - 1] = 0;
             data.Crates[command.To][len(data.Crates[command.To])] = tmp;
@@ -36,15 +33,12 @@ pub fn puzzle_2(allocator: std.mem.Allocator, input: []const u8) !Result {
     var data = try parse_input(allocator, input);
     defer data.deinit(allocator);
 
-    for (data.Commands) |command| {
-        var command_crates = command.Crates;
-
+    for (data.Commands) |*command| {
         const crate_stack = blk: {
             var r = std.mem.zeroes([MAX_HEIGHT]u8);
             var idx: usize = 0;
 
-            while (command_crates > 0) : (command_crates -= 1) {
-                if (command_crates == 0) break;
+            while (command.Crates > 0) : (command.Crates -= 1) {
                 r[idx] = data.Crates[command.From][len(data.Crates[command.From]) - 1];
                 data.Crates[command.From][len(data.Crates[command.From]) - 1] = 0;
                 idx += 1;
