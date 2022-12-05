@@ -1,5 +1,5 @@
 const std = @import("std");
-const slurp = @import("util/file.zig").slurp;
+const Result = @import("util/aoc.zig").Result;
 
 const Hand = enum(u8) { Rock = 1, Paper = 2, Scissors = 3 };
 const Outcome = enum(u8) { Win = 6, Draw = 3, Lose = 0 };
@@ -79,7 +79,7 @@ const match_impl = struct {
     }
 };
 
-pub fn puzzle_1(input: []const u8) u16 {
+pub fn puzzle_1(input: []const u8) Result {
     var iter = std.mem.split(u8, input, "\n");
 
     var score: u16 = 0;
@@ -91,10 +91,10 @@ pub fn puzzle_1(input: []const u8) u16 {
         );
     }
 
-    return score;
+    return .{ .int = score };
 }
 
-pub fn puzzle_2(input: []const u8) u16 {
+pub fn puzzle_2(input: []const u8) Result {
     var iter = std.mem.split(u8, input, "\n");
 
     var score: u16 = 0;
@@ -106,5 +106,5 @@ pub fn puzzle_2(input: []const u8) u16 {
         );
     }
 
-    return score;
+    return .{ .int = score };
 }

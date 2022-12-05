@@ -1,6 +1,7 @@
 const std = @import("std");
+const Result = @import("util/aoc.zig").Result;
 
-pub fn puzzle_1(input: []const u8) !u16 {
+pub fn puzzle_1(input: []const u8) !Result {
     var iter = std.mem.split(u8, input, "\n");
 
     var count: u16 = 0;
@@ -12,10 +13,10 @@ pub fn puzzle_1(input: []const u8) !u16 {
             count += 1;
     }
 
-    return count;
+    return .{ .int = count };
 }
 
-pub fn puzzle_2(input: []const u8) !u16 {
+pub fn puzzle_2(input: []const u8) !Result {
     var iter = std.mem.split(u8, input, "\n");
 
     var count: u16 = 0;
@@ -27,7 +28,7 @@ pub fn puzzle_2(input: []const u8) !u16 {
             count += 1;
     }
 
-    return count;
+    return .{ .int = count };
 }
 
 fn parse_range(line: []const u8) ![2][2]u8 {

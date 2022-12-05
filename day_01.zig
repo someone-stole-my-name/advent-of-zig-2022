@@ -1,7 +1,8 @@
 const std = @import("std");
-const min_idx = @import("util/mem.zig").min_idx;
+const math = std.math;
+const Result = @import("util/aoc.zig").Result;
 
-pub fn puzzle_1(input: []const u8) !i32 {
+pub fn puzzle_1(input: []const u8) !Result {
     var iter = std.mem.split(u8, input, "\n");
     var count: i32 = 0;
     var max: i32 = 0;
@@ -17,10 +18,10 @@ pub fn puzzle_1(input: []const u8) !i32 {
         }
     }
 
-    return max;
+    return .{ .int = max };
 }
 
-pub fn puzzle_2(input: []const u8) !i32 {
+pub fn puzzle_2(input: []const u8) !Result {
     var iter = std.mem.split(u8, input, "\n");
     var count: i32 = 0;
     var max: [3]i32 = std.mem.zeroes([3]i32);
@@ -42,5 +43,19 @@ pub fn puzzle_2(input: []const u8) !i32 {
         count += v;
     }
 
-    return count;
+    return .{ .int = count };
+}
+
+fn min_idx(comptime T: type, slice: []const T) usize {
+    var best = slice[0];
+    var idx: usize = 0;
+
+    for (slice[1..]) |item, i| {
+        const possible_best = math.min(best, item);
+        if (best > possible_best) {
+            best = possible_best;
+            idx = i + 1;
+        }
+    }
+    return idx;
 }

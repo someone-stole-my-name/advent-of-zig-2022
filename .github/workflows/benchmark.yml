@@ -1,0 +1,21 @@
+---
+name: Run benchmarks
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+      - run: make docker-benchmark
+      - run: |
+          git config user.email 'actions@github.com'
+          git config user.name 'github-actions'
+          if git commit -am ':robot: Update README.md'; then
+            git push origin HEAD:${{ github.ref }}
+          fi
