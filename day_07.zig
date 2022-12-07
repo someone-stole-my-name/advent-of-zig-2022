@@ -1,7 +1,7 @@
 const std = @import("std");
 const Result = @import("util/aoc.zig").Result;
 
-const NodeType = union(enum) { File, Dir };
+const NodeType = enum { File, Dir };
 const Node = struct {
     Name: []const u8,
     Childs: struct {
