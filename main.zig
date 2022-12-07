@@ -12,6 +12,7 @@ const t = [_]struct {
     .{ .day = @import("day_04.zig"), .input = @embedFile("inputs/day_04"), .expect = &[_]Result{ .{ .int = 483 }, .{ .int = 874 } } },
     .{ .day = @import("day_05.zig"), .input = @embedFile("inputs/day_05"), .expect = &[_]Result{ .{ .string = "SHMSDGZVC" }, .{ .string = "VRZGHDFBQ" } } },
     .{ .day = @import("day_06.zig"), .input = @embedFile("inputs/day_06"), .expect = &[_]Result{ .{ .int = 1896 }, .{ .int = 3452 } } },
+    .{ .day = @import("day_07.zig"), .input = @embedFile("inputs/day_07"), .expect = &[_]Result{ .{ .int = 1427048 }, .{ .int = 2940614 } } },
 };
 
 pub fn main() !void {
