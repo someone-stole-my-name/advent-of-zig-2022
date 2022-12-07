@@ -82,13 +82,7 @@ fn build_tree(allocator: std.mem.Allocator, root: *Node, input: []const u8) !voi
                 if (std.mem.eql(u8, line[0..3], "dir")) break :blk NodeType.Dir;
                 break :blk NodeType.File;
             },
-            .Size = blk: {
-                break :blk std.fmt.parseInt(
-                    usize,
-                    line[0..std.mem.indexOf(u8, line, " ").?],
-                    0,
-                ) catch 0;
-            },
+            .Size = std.fmt.parseInt(usize, line[0..std.mem.indexOf(u8, line, " ").?], 0) catch 0,
         };
         current_root.*.append(node);
     }
