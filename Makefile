@@ -1,4 +1,4 @@
-ZIG_VERSION=0.11.0-dev.149+7733246d6
+ZIG_VERSION=0.11.0-dev.612+8ccb9a6ad
 IMAGE_NAME=zigci
 
 all: clean test fmt benchmark

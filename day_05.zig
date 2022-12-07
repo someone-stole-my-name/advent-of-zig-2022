@@ -65,7 +65,7 @@ fn build_answer(allocator: std.mem.Allocator, crates: [][MAX_HEIGHT]u8) !Result 
         r.appendAssumeCapacity(crates[i][len(crates[i]) - 1]);
     }
 
-    return .{ .string = r.toOwnedSlice() };
+    return .{ .string = try r.toOwnedSlice() };
 }
 
 fn parse_input(allocator: std.mem.Allocator, input: []const u8) !Data {
@@ -86,7 +86,7 @@ fn parse_input(allocator: std.mem.Allocator, input: []const u8) !Data {
         var r = try std.ArrayList([MAX_HEIGHT]u8).initCapacity(allocator, rows);
         var i: usize = 0;
         while (i < rows) : (i += 1) r.appendAssumeCapacity(std.mem.zeroes([MAX_HEIGHT]u8));
-        break :blk r.toOwnedSlice();
+        break :blk try r.toOwnedSlice();
     };
 
     while (iter.next()) |line| : (floor -= 1) {
@@ -116,7 +116,7 @@ fn parse_input(allocator: std.mem.Allocator, input: []const u8) !Data {
         command.To = try std.fmt.parseInt(u8, line_iter.next() orelse unreachable, 0) - 1;
         try commands.append(command);
     }
-    return .{ .Commands = commands.toOwnedSlice(), .Crates = crates };
+    return .{ .Commands = try commands.toOwnedSlice(), .Crates = crates };
 }
 
 fn len(row: [MAX_HEIGHT]u8) usize {
