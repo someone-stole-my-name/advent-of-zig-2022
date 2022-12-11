@@ -1,7 +1,7 @@
 const std = @import("std");
 
 pub const Result = union(enum) {
-    int: i32,
+    int: i64,
     string: []const u8,
 
     pub fn cmp(self: Result, result: Result) bool {

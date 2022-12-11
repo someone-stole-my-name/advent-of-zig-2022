@@ -16,6 +16,7 @@ const t = [_]struct {
     .{ .day = @import("day_08.zig"), .input = @embedFile("inputs/day_08"), .expect = &[_]Result{ .{ .int = 1859 }, .{ .int = 332640 } } },
     .{ .day = @import("day_09.zig"), .input = @embedFile("inputs/day_09"), .expect = &[_]Result{ .{ .int = 6087 }, .{ .int = 2493 } } },
     .{ .day = @import("day_10.zig"), .input = @embedFile("inputs/day_10"), .expect = &[_]Result{ .{ .int = 14620 }, .{ .int = 4210 } } },
+    .{ .day = @import("day_11.zig"), .input = @embedFile("inputs/day_11"), .expect = &[_]Result{ .{ .int = 108240 }, .{ .int = 25712998901 } } },
 };
 
 pub fn main() !void {
