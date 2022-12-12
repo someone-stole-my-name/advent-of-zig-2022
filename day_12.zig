@@ -28,13 +28,13 @@ fn parse_free(allocator: std.mem.Allocator, grid: [][]u8) void {
     allocator.free(grid);
 }
 
-fn bfs(allocator: std.mem.Allocator, grid: [][]const u8, start: Point, end: Point) u16 {
+fn bfs(allocator: std.mem.Allocator, grid: [][]const u8, start: []Point, end: Point) u16 {
     var visited = std.AutoHashMap([2]i32, bool).init(allocator);
     defer visited.deinit();
     var queue = std.ArrayList(Point).init(allocator);
     defer queue.deinit();
 
-    queue.append(start) catch unreachable;
+    for (start) |p| queue.append(p) catch unreachable;
 
     while (queue.items.len > 0) {
         const point = queue.orderedRemove(0);
@@ -90,7 +90,7 @@ pub fn puzzle_1(allocator: std.mem.Allocator, input: []const u8) Result {
         }
     }
 
-    return .{ .int = bfs(allocator, grid, start.?, end.?) };
+    return .{ .int = bfs(allocator, grid, &[_]Point{start.?}, end.?) };
 }
 
 pub fn puzzle_2(allocator: std.mem.Allocator, input: []const u8) Result {
@@ -98,9 +98,6 @@ pub fn puzzle_2(allocator: std.mem.Allocator, input: []const u8) Result {
     defer parse_free(allocator, grid);
 
     var start_points = std.ArrayList(Point).init(allocator);
-    defer start_points.deinit();
-
-    var distance = @intCast(u16, grid.len * grid[0].len);
     var end: Point = undefined;
 
     for (grid) |row, x| {
@@ -120,7 +117,8 @@ pub fn puzzle_2(allocator: std.mem.Allocator, input: []const u8) Result {
         }
     }
 
-    for (start_points.items) |start| distance = std.math.min(distance, bfs(allocator, grid, start, end));
+    const p = start_points.toOwnedSlice() catch unreachable;
+    defer allocator.free(p);
 
-    return .{ .int = distance };
+    return .{ .int = bfs(allocator, grid, p, end) };
 }
