@@ -56,8 +56,7 @@ fn bfs(allocator: std.mem.Allocator, grid: [][]const u8, start: []Point, end: Po
 
             if (!(p.row >= 0 and p.col >= 0 and p.row < grid.len and p.col < grid[0].len)) continue;
             if (visited.contains([_]i32{ p.row, p.col })) continue;
-            if (grid[@intCast(usize, point.row)][@intCast(usize, point.col)] != 'S' and grid[@intCast(usize, p.row)][@intCast(usize, p.col)] != 'E')
-                if (grid[@intCast(usize, p.row)][@intCast(usize, p.col)] > (grid[@intCast(usize, point.row)][@intCast(usize, point.col)] + 1)) continue;
+            if (grid[@intCast(usize, p.row)][@intCast(usize, p.col)] > (grid[@intCast(usize, point.row)][@intCast(usize, point.col)] + 1)) continue;
 
             queue.append(p) catch unreachable;
         }
